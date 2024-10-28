@@ -10,4 +10,20 @@ document.addEventListener("DOMContentLoaded", () => {
         square.classList.add("square");
     });
 
+    squares.forEach((square, index) => {
+        square.addEventListener("click", () => {
+            if (!gameBoard[index]) {  // Ensure the square is empty before placing
+                gameBoard[index] = currentPlayer;
+                square.textContent = currentPlayer;
+                square.classList.add(currentPlayer);
+    
+                // Switch to the other player
+                currentPlayer = currentPlayer === "X" ? "O" : "X";
+    
+                // Check for a win after every move
+                checkWinner();
+            }
+        });
+    });
+
 });
