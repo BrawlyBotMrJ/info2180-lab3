@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const newGameButton = document.querySelector(".btn");
     
     let currentPlayer = "X";
-    let gameBoard = Array(9).fill(null); // Initialize the board state
+    let gameBoard = Array(9).fill(null); 
     
     squares.forEach((square) => {
         square.classList.add("square");
@@ -12,15 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     squares.forEach((square, index) => {
         square.addEventListener("click", () => {
-            if (!gameBoard[index]) {  // Ensure the square is empty before placing
+            if (!gameBoard[index]) {
                 gameBoard[index] = currentPlayer;
                 square.textContent = currentPlayer;
                 square.classList.add(currentPlayer);
-    
-                // Switch to the other player
+
                 currentPlayer = currentPlayer === "X" ? "O" : "X";
-    
-                // Check for a win after every move
+
                 checkWinner();
             }
         });
@@ -38,9 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function checkWinner() {
         const winningCombinations = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-            [0, 4, 8], [2, 4, 6]            // Diagonals
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]            
         ];
     
         for (const [a, b, c] of winningCombinations) {
@@ -51,5 +49,16 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     }
+
+    newGameButton.addEventListener("click", () => {
+        gameBoard.fill(null);  // Reset the game board state
+        squares.forEach(square => {
+            square.textContent = ""; 
+            square.classList.remove("X", "O");
+        });
+        statusDiv.textContent = "Move your mouse over a square and click to play an X or an O.";
+        statusDiv.classList.remove("you-won");
+        currentPlayer = "X";
+    });
 
 });
